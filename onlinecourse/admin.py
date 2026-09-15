@@ -1,7 +1,13 @@
 from django.contrib import admin
-from django.contrib.auth.models import User
-from django.contrib.auth.admin import UserAdmin
-from .models import Course, Lesson, Question, Choice, Submission
+from .models import (
+    Course,
+    Lesson,
+    Instructor,
+    Learner,
+    Question,
+    Choice,
+    Submission
+)
 
 
 class ChoiceInline(admin.TabularInline):
@@ -19,19 +25,13 @@ class QuestionAdmin(admin.ModelAdmin):
 
 
 class LessonAdmin(admin.ModelAdmin):
-    list_display = ('title', 'course')
-
-
-class CourseAdmin(admin.ModelAdmin):
     inlines = [QuestionInline]
-    list_display = ('name', 'description')
 
 
-admin.site.unregister(User)
-admin.site.register(User, UserAdmin)
-
-admin.site.register(Course, CourseAdmin)
+admin.site.register(Course)
 admin.site.register(Lesson, LessonAdmin)
+admin.site.register(Instructor)
+admin.site.register(Learner)
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(Choice)
 admin.site.register(Submission)
